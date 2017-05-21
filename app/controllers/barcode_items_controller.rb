@@ -34,6 +34,11 @@ class BarcodeItemsController < ApplicationController
     redirect_to barcode_items_path
   end
 
+  def find
+    @barcode_value = BarcodeItem.find_by(value: params[:value])
+    render json: @barcode_value.to_json(only: [:value, :item_id, :quantity])
+  end
+
 private
   def barcode_item_params
     params.require(:barcode_item).permit(:value, :item_id, :quantity)
