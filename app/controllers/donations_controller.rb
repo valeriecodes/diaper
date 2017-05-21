@@ -69,7 +69,7 @@ class DonationsController < ApplicationController
   end
 
   def destroy
-    @donation = current_organization.donations.find(params[:id])
+    @donation = current_organization.donations.includes(:line_items, storage_location: :inventory_items).find(params[:id])
     @donation.destroy
     redirect_to donations_path
   end

@@ -17,7 +17,6 @@ class Donation < ApplicationRecord
   SOURCES = ["Diaper Drive", "Purchased Supplies", "Donation Pickup Location", "Misc. Donation"].freeze
 
   belongs_to :organization
-
   belongs_to :dropoff_location
   belongs_to :storage_location
   has_many :line_items, as: :itemizable, inverse_of: :itemizable
@@ -26,6 +25,8 @@ class Donation < ApplicationRecord
     allow_destroy: true
 
   validates :dropoff_location, :storage_location, :source, :organization, presence: true
+
+  before_destroy :remove_inventory
 
   scope :between, ->(start, stop) { where(donations: { created_at: start..stop }) }
   scope :during, ->(range) { where(donations: { created_at: range }) }
@@ -88,4 +89,7 @@ class Donation < ApplicationRecord
     line_item.save
   end
 
+  def remove_inventory
+    storage_location.remove!(self)
+  end
 end

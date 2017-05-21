@@ -17,7 +17,7 @@ RSpec.feature "Donations", type: :feature do
       expect(page).to have_content "Start a new donation"
     end
 
-    scenario "User has basic crud links available", :focus do
+    scenario "User has basic crud links available" do
       expect(page).to have_link "View"
       expect(page).to have_link "Edit"
       expect(page).to have_link "Delete"
@@ -43,7 +43,6 @@ RSpec.feature "Donations", type: :feature do
     end
 
     scenario "The inventory at the given storage location increases by item quantity" do
-      click_button "Create Donation"
       expect { click_button "Create Donation" }.to change{ StorageLocation.first.inventory_items.count }.by(1)
     end
   end
