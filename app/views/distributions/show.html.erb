@@ -55,6 +55,7 @@
     <div class="box-footer with-border">
       <%= edit_button_to edit_distribution_path(@distribution), {text: "Make a Correction", size: "lg"} %>
       <%= print_button_to print_distribution_path(@distribution, format: :pdf), {size: "lg"} %>
+      <%= submit_button_to distribution_change_status_path(@distribution, status: 'complete'), {method: :patch, text: 'Mark Complete'}, {remote: true} %>
     </div>
   </div>
 

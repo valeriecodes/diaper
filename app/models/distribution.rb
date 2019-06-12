@@ -49,6 +49,8 @@ class Distribution < ApplicationRecord
 
   delegate :name, to: :partner, prefix: true
 
+  enum status: [:started, :scheduled, :complete]
+
   # TODO: kill me
   def replace_distribution!(new_distribution_params)
     ActiveRecord::Base.transaction do

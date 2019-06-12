@@ -71,6 +71,7 @@ Rails.application.routes.draw do
 
     resources :distributions do
       get :print, on: :member
+      patch :change_status
       collection do
         get :pick_ups
       end

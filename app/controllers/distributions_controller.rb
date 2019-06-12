@@ -110,6 +110,15 @@ class DistributionsController < ApplicationController
     end
   end
 
+  def change_status
+    distribution = Distribution.find(params[:distribution_id])
+    distribution.update_attribute(:status, params[:status]) if Distribution.statuses.keys.include? params[:status]
+    flash[:notice] = "Status updated"
+    respond_to do |format|
+      format.json { render nothing: true, status: :ok }
+    end
+  end
+
   # TODO: This needs a little more context. Is it JSON only? HTML?
   def pick_ups
     @pick_ups = current_organization.distributions
